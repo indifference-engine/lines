@@ -1,0 +1,4 @@
+obj
+dist
+tests/cases/*/outputs/actual
+tests/pass_markers
