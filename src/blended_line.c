@@ -1,15 +1,6 @@
 #include <stdint.h>
 #include "blended_line.h"
 
-static float linearly_interpolate_f32_f32_f32(
-    const float start,
-    const float end,
-    const float progress,
-    const float inverse_progress)
-{
-  return start * inverse_progress + end * progress;
-}
-
 void blended_line(
     const float start_opacity,
     const float start_red,
@@ -139,9 +130,9 @@ void blended_line(
         const float destination_opacity = viewport_opacities[index] * (1.0f - source_opacity);
 
         viewport_opacities[index] = source_opacity + destination_opacity;
-        viewport_reds[index] = linearly_interpolate_f32_f32_f32(viewport_reds[index], accumulators[3], source_opacity, destination_opacity);
-        viewport_greens[index] = linearly_interpolate_f32_f32_f32(viewport_greens[index], accumulators[4], source_opacity, destination_opacity);
-        viewport_blues[index] = linearly_interpolate_f32_f32_f32(viewport_blues[index], accumulators[5], source_opacity, destination_opacity);
+        viewport_reds[index] = accumulators[3] * source_opacity + viewport_reds[index] * destination_opacity;
+        viewport_greens[index] = accumulators[4] * source_opacity + viewport_greens[index] * destination_opacity;
+        viewport_blues[index] = accumulators[5] * source_opacity + viewport_blues[index] * destination_opacity;
       }
     }
 
