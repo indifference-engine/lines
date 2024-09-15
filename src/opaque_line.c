@@ -26,11 +26,6 @@ static void multiply_f32s_f32(
   }
 }
 
-static float min_f32(const float a, const float b)
-{
-  return a < b ? a : b;
-}
-
 static void add_f32s_f32s(
     const float *const augends,
     const float *const addends,
@@ -142,7 +137,7 @@ void opaque_line(
     first_primary_axis = 0;
   }
 
-  last_primary_axis = min_f32(last_primary_axis, maximum_primary_axis);
+  last_primary_axis = last_primary_axis < maximum_primary_axis ? last_primary_axis : maximum_primary_axis;
 
   for (int primary_axis = first_primary_axis; primary_axis <= last_primary_axis; primary_axis++)
   {
