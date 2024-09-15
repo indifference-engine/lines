@@ -44,12 +44,15 @@ tests/cases/%/outputs/actual/opacities.data: tests/cases/%/outputs/actual/reds.d
 tests/cases/%/outputs/actual/depths.data: tests/cases/%/outputs/actual/reds.data
 	echo
 
-tests/pass_markers/%: tests/cases/%/outputs/expected/reds.data tests/cases/%/outputs/expected/greens.data tests/cases/%/outputs/expected/blues.data tests/cases/%/outputs/expected/opacities.data tests/cases/%/outputs/expected/depths.data tests/cases/%/outputs/actual/reds.data tests/cases/%/outputs/actual/greens.data tests/cases/%/outputs/actual/blues.data tests/cases/%/outputs/actual/opacities.data tests/cases/%/outputs/actual/depths.data
-	diff <(xxd tests/cases/$*/outputs/expected/reds.data) <(xxd tests/cases/$*/outputs/actual/reds.data)
-	diff <(xxd tests/cases/$*/outputs/expected/greens.data) <(xxd tests/cases/$*/outputs/actual/greens.data)
-	diff <(xxd tests/cases/$*/outputs/expected/blues.data) <(xxd tests/cases/$*/outputs/actual/blues.data)
-	diff <(xxd tests/cases/$*/outputs/expected/opacities.data) <(xxd tests/cases/$*/outputs/actual/opacities.data)
-	diff <(xxd tests/cases/$*/outputs/expected/depths.data) <(xxd tests/cases/$*/outputs/actual/depths.data)
+tests/cases/%.hex: tests/cases/%.data
+	xxd $< > $@
+
+tests/pass_markers/%: tests/cases/%/outputs/expected/reds.hex tests/cases/%/outputs/expected/greens.hex tests/cases/%/outputs/expected/blues.hex tests/cases/%/outputs/expected/opacities.hex tests/cases/%/outputs/expected/depths.hex tests/cases/%/outputs/actual/reds.hex tests/cases/%/outputs/actual/greens.hex tests/cases/%/outputs/actual/blues.hex tests/cases/%/outputs/actual/opacities.hex tests/cases/%/outputs/actual/depths.hex
+	diff tests/cases/$*/outputs/expected/reds.hex tests/cases/$*/outputs/actual/reds.hex
+	diff tests/cases/$*/outputs/expected/greens.hex tests/cases/$*/outputs/actual/greens.hex
+	diff tests/cases/$*/outputs/expected/blues.hex tests/cases/$*/outputs/actual/blues.hex
+	diff tests/cases/$*/outputs/expected/opacities.hex tests/cases/$*/outputs/actual/opacities.hex
+	diff tests/cases/$*/outputs/expected/depths.hex tests/cases/$*/outputs/actual/depths.hex
 	mkdir -p $(dir $@)
 	touch $@
 

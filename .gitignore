@@ -1,4 +1,5 @@
 obj
 dist
 tests/cases/*/outputs/actual
+tests/cases/*/outputs/*/*.hex
 tests/pass_markers
