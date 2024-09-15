@@ -7,8 +7,7 @@
  * @param start_opacity The opacity at the start of the line, where 0 is fully
  *                      transparent and 1 is fully opaque.  Behavior for values
  *                      outside this range is undefined.  Behavior is undefined
- *                      if NaN, infinity, negative infinity or unable to be cast
- *                      to int.
+ *                      if NaN, infinity or negative infinity.
  * @param start_red The intensity of the red channel at the start of the line.
  *                  Behavior is undefined if NaN, infinity, negative infinity or
  *                  unable to be cast to int.
