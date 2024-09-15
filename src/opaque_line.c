@@ -1,11 +1,6 @@
 #include <stdint.h>
 #include "opaque_line.h"
 
-static float absolute_f32(const float real)
-{
-  return real >= 0.0f ? real : -real;
-}
-
 static void subtract_f32s_f32s(
     const float *const minuends,
     const float *const subtrahends,
@@ -16,11 +11,6 @@ static void subtract_f32s_f32s(
   {
     differences[index] = minuends[index] - subtrahends[index];
   }
-}
-
-static float floor(const float x)
-{
-  return x < 0 ? (int)x - 1 : (int)x;
 }
 
 static void multiply_add_f32s_f32_f32s(
@@ -86,16 +76,16 @@ void opaque_line(
     float *const viewport_opacities,
     float *const viewport_depths)
 {
-  const int rounded_start_row = floor(start_row);
-  const int rounded_start_column = floor(start_column);
+  const int rounded_start_row = start_row < 0 ? ((int)start_row) - 1 : ((int)start_row);
+  const int rounded_start_column = start_column < 0 ? ((int)start_column) - 1 : ((int)start_column);
 
-  const int rounded_end_row = floor(end_row);
-  const int rounded_end_column = floor(end_column);
+  const int rounded_end_row = end_row < 0 ? ((int)end_row) - 1 : ((int)end_row);
+  const int rounded_end_column = end_column < 0 ? ((int)end_column) - 1 : ((int)end_column);
 
   const int row_delta = rounded_end_row - rounded_start_row;
-  const int absolute_row_delta = absolute_f32(row_delta);
+  const int absolute_row_delta = row_delta >= 0.0f ? row_delta : -row_delta;
   const int column_delta = rounded_end_column - rounded_start_column;
-  const int absolute_column_delta = absolute_f32(column_delta);
+  const int absolute_column_delta = column_delta >= 0.0f ? column_delta : -column_delta;
 
   int start_primary_axis, end_primary_axis, indices_per_primary_axis, maximum_primary_axis, indices_per_secondary_axis, maximum_secondary_axis;
   float starts[5], ends[5];
