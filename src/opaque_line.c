@@ -1,18 +1,6 @@
 #include <stdint.h>
 #include "opaque_line.h"
 
-static void subtract_f32s_f32s(
-    const float *const minuends,
-    const float *const subtrahends,
-    float *const differences,
-    const int quantity)
-{
-  for (int index = 0; index < quantity; index++)
-  {
-    differences[index] = minuends[index] - subtrahends[index];
-  }
-}
-
 static void multiply_add_f32s_f32_f32s(
     const float *const multipliers,
     const float multiplicand,
@@ -125,7 +113,11 @@ void opaque_line(
   int first_primary_axis, last_primary_axis;
   float per_pixels[5], *accumulators, progress_per_pixel;
 
-  subtract_f32s_f32s(ends, starts, per_pixels, 5);
+  per_pixels[0] = ends[0] - starts[0];
+  per_pixels[1] = ends[1] - starts[1];
+  per_pixels[2] = ends[2] - starts[2];
+  per_pixels[3] = ends[3] - starts[3];
+  per_pixels[4] = ends[4] - starts[4];
 
   if (end_primary_axis > start_primary_axis)
   {
