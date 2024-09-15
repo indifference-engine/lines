@@ -1,19 +1,6 @@
 #include <stdint.h>
 #include "opaque_line.h"
 
-static void multiply_add_f32s_f32_f32s(
-    const float *const multipliers,
-    const float multiplicand,
-    const float *const addends,
-    float *const results,
-    const int quantity)
-{
-  for (int index = 0; index < quantity; index++)
-  {
-    results[index] = multipliers[index] * multiplicand + addends[index];
-  }
-}
-
 void opaque_line(
     const float start_red,
     const float start_green,
@@ -113,7 +100,11 @@ void opaque_line(
 
   if (first_primary_axis < 0)
   {
-    multiply_add_f32s_f32_f32s(per_pixels, -first_primary_axis, accumulators, accumulators, 4);
+    const float inverted_first_primary_axis = -first_primary_axis;
+    accumulators[0] += per_pixels[0] * inverted_first_primary_axis;
+    accumulators[1] += per_pixels[1] * inverted_first_primary_axis;
+    accumulators[2] += per_pixels[2] * inverted_first_primary_axis;
+    accumulators[3] += per_pixels[3] * inverted_first_primary_axis;
     first_primary_axis = 0;
   }
 
