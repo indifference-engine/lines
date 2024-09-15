@@ -61,7 +61,19 @@ void write_file(const float *const buffer, const char *const name)
 
   for (int i = 0; i < ROWS * COLUMNS; i++)
   {
-    temp[i] = buffer[i] * 255.0f;
+    float value = buffer[i] * 255.0f;
+
+    if (value < 0.0f)
+    {
+      value = 0.0f;
+    }
+
+    if (value > 255.0f)
+    {
+      value = 255.0f;
+    }
+
+    temp[i] = value;
   }
 
   FILE *file = fopen(name, "wb");
