@@ -14,18 +14,6 @@ static void multiply_add_f32s_f32_f32s(
   }
 }
 
-static void multiply_f32s_f32(
-    const float *const multipliers,
-    const float multiplicand,
-    float *const products,
-    const int quantity)
-{
-  for (int index = 0; index < quantity; index++)
-  {
-    products[index] = multipliers[index] * multiplicand;
-  }
-}
-
 void opaque_line(
     const float start_red,
     const float start_green,
@@ -117,7 +105,11 @@ void opaque_line(
     progress_per_pixel = 1.0f / ((float)(end_primary_axis - 1 - start_primary_axis));
   }
 
-  multiply_f32s_f32(per_pixels, progress_per_pixel, per_pixels, 5);
+  per_pixels[0] *= progress_per_pixel;
+  per_pixels[1] *= progress_per_pixel;
+  per_pixels[2] *= progress_per_pixel;
+  per_pixels[3] *= progress_per_pixel;
+  per_pixels[4] *= progress_per_pixel;
 
   if (first_primary_axis < 0)
   {
