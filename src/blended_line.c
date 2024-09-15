@@ -111,6 +111,8 @@ void blended_line(
     accumulators[1] += per_pixels[1] * inverted_first_primary_axis;
     accumulators[2] += per_pixels[2] * inverted_first_primary_axis;
     accumulators[3] += per_pixels[3] * inverted_first_primary_axis;
+    accumulators[4] += per_pixels[4] * inverted_first_primary_axis;
+    accumulators[5] += per_pixels[5] * inverted_first_primary_axis;
     first_primary_axis = 0;
   }
 
@@ -126,13 +128,13 @@ void blended_line(
 
       if (accumulators[1] < viewport_depths[index])
       {
-        const float source_opacity = accumulators[2];
-        const float destination_opacity = viewport_opacities[index] * (1.0f - source_opacity);
+        const float opacity = accumulators[2];
+        const float inverse_opacity = 1.0f - opacity;
 
-        viewport_opacities[index] = source_opacity + destination_opacity;
-        viewport_reds[index] = accumulators[3] * source_opacity + viewport_reds[index] * destination_opacity;
-        viewport_greens[index] = accumulators[4] * source_opacity + viewport_greens[index] * destination_opacity;
-        viewport_blues[index] = accumulators[5] * source_opacity + viewport_blues[index] * destination_opacity;
+        viewport_opacities[index] = 1.0f - (1.0f - viewport_opacities[index]) * inverse_opacity;
+        viewport_reds[index] = viewport_reds[index] * inverse_opacity + accumulators[3] * opacity;
+        viewport_greens[index] = viewport_greens[index] * inverse_opacity + accumulators[4] * opacity;
+        viewport_blues[index] = viewport_blues[index] * inverse_opacity + accumulators[5] * opacity;
       }
     }
 
