@@ -26,18 +26,6 @@ static void multiply_f32s_f32(
   }
 }
 
-static void add_f32s_f32s(
-    const float *const augends,
-    const float *const addends,
-    float *const sums,
-    const int quantity)
-{
-  for (int index = 0; index < quantity; index++)
-  {
-    sums[index] = augends[index] + addends[index];
-  }
-}
-
 void opaque_line(
     const float start_red,
     const float start_green,
@@ -159,6 +147,10 @@ void opaque_line(
       }
     }
 
-    add_f32s_f32s(accumulators, per_pixels, accumulators, 5);
+    accumulators[0] += per_pixels[0];
+    accumulators[1] += per_pixels[1];
+    accumulators[2] += per_pixels[2];
+    accumulators[3] += per_pixels[3];
+    accumulators[4] += per_pixels[4];
   }
 }

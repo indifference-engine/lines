@@ -26,18 +26,6 @@ static void multiply_f32s_f32(
   }
 }
 
-static void add_f32s_f32s(
-    const float *const augends,
-    const float *const addends,
-    float *const sums,
-    const int quantity)
-{
-  for (int index = 0; index < quantity; index++)
-  {
-    sums[index] = augends[index] + addends[index];
-  }
-}
-
 static float linearly_interpolate_f32_f32_f32(
     const float start,
     const float end,
@@ -173,6 +161,11 @@ void blended_line(
       }
     }
 
-    add_f32s_f32s(accumulators, per_pixels, accumulators, 6);
+    accumulators[0] += per_pixels[0];
+    accumulators[1] += per_pixels[1];
+    accumulators[2] += per_pixels[2];
+    accumulators[3] += per_pixels[3];
+    accumulators[4] += per_pixels[4];
+    accumulators[5] += per_pixels[5];
   }
 }
