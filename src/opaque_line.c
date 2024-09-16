@@ -16,10 +16,10 @@ void opaque_line(
     const float end_depth,
     const int viewport_rows,
     const int viewport_columns,
+    float *const viewport_opacities,
     float *const viewport_reds,
     float *const viewport_greens,
     float *const viewport_blues,
-    float *const viewport_opacities,
     float *const viewport_depths)
 {
   const int rounded_start_row = start_row < 0 ? ((int)start_row) - 1 : ((int)start_row);

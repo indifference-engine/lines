@@ -44,6 +44,11 @@
  *                      undefined if less than 1.
  * @param viewport_columns The width of the viewport, in columns.  Behavior is
  *                         undefined if less than 1.
+ * @param viewport_opacities The opacity of each pixel within the viewport,
+ *                           row-major, starting from the top left corner, where
+ *                           0 is fully transparent and 1 is fully opaque.
+ *                           Behavior is undefined for values outside this
+ *                           range, NaN, infinity or positive infinity.
  * @param viewport_reds The intensity of the red channel of each pixel within
  *                      the viewport, row-major, starting from the top left
  *                      corner.  Behavior is undefined if any are NaN, infinity,
@@ -58,11 +63,6 @@
  *                       corner.  Behavior is undefined if any are NaN,
  *                       infinity, negative infinity or unable to be cast to
  *                       int.
- * @param viewport_opacities The opacity of each pixel within the viewport,
- *                           row-major, starting from the top left corner, where
- *                           0 is fully transparent and 1 is fully opaque.
- *                           Behavior is undefined for values outside this
- *                           range, NaN, infinity or positive infinity.
  * @param viewport_depths The depth of each pixel within the viewport, where
  *                        greater values are further away, row-major, starting
  *                        from the top left corner.  Behavior is undefined if
@@ -84,10 +84,10 @@ void opaque_line(
     const float end_depth,
     const int viewport_rows,
     const int viewport_columns,
+    float *const viewport_opacities,
     float *const viewport_reds,
     float *const viewport_greens,
     float *const viewport_blues,
-    float *const viewport_opacities,
     float *const viewport_depths);
 
 #endif
