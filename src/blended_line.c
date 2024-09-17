@@ -22,7 +22,7 @@ void blended_line(
     float *const viewport_reds,
     float *const viewport_greens,
     float *const viewport_blues,
-    float *const viewport_depths)
+    const float *const viewport_depths)
 {
   const int rounded_start_row = start_row < 0 ? ((int)start_row) - 1 : ((int)start_row);
   const int rounded_start_column = start_column < 0 ? ((int)start_column) - 1 : ((int)start_column);
