@@ -32,7 +32,7 @@ tests/cases/%/outputs/actual/opacities.data: dist/% tests/cases/%/inputs/opaciti
 	mkdir -p $(dir $@)
 	cd tests/cases/$* && ../../../dist/$*
 
-tests/cases/%/outputs/actual/red.data: tests/cases/%/outputs/actual/opacities.data
+tests/cases/%/outputs/actual/reds.data: tests/cases/%/outputs/actual/opacities.data
 	echo
 
 tests/cases/%/outputs/actual/greens.data: tests/cases/%/outputs/actual/opacities.data
