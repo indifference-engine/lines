@@ -98,6 +98,6 @@ void blended_line(
     float *const viewport_reds,
     float *const viewport_greens,
     float *const viewport_blues,
-    float *const viewport_depths);
+    const float *const viewport_depths);
 
 #endif
