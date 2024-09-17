@@ -37,16 +37,18 @@ corresponding function available.
 
 ### Blend Modes
 
-| Blend Mode | Color                                           | Opacity             | Depth        |
-| ---------- | ----------------------------------------------- | ------------------- | ------------ |
-| Opaque     | Overwritten without mixing with existing color. | Overwritten with 1. | Overwritten. |
-| Blended    | Mixed using opacity.                            | Mixed with opacity. | Unchanged.   |
+| Blend Mode | Color                    | Opacity             | Depth        |
+| ---------- | ------------------------ | ------------------- | ------------ |
+| Opaque     | Overwritten.             | Overwritten with 1. | Overwritten. |
+| Additive   | Summed ("linear dodge"). | Unchanged.          | Unchanged.   |
+| Blended    | Mixed using opacity.     | Mixed with opacity. | Unchanged.   |
 
 ### Functions
 
 | Name            | Blend Mode |
 | --------------- | ---------- |
 | `opaque_line`   | Opaque     |
+| `additive_line` | Additive   |
 | `blended_line`  | Blended    |
 
 ## Tests
