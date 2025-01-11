@@ -50,7 +50,7 @@ void opaque_line(
     start_primary_axis = start_row;
     end_primary_axis = end_row;
     indices_per_primary_axis = viewport_columns;
-    maximum_primary_axis = viewport_rows;
+    maximum_primary_axis = viewport_rows - 1;
     indices_per_secondary_axis = 1;
     maximum_secondary_axis = viewport_columns;
     starts[0] = start_column;
@@ -61,7 +61,7 @@ void opaque_line(
     start_primary_axis = start_column;
     end_primary_axis = end_column;
     indices_per_primary_axis = 1;
-    maximum_primary_axis = viewport_columns;
+    maximum_primary_axis = viewport_columns - 1;
     indices_per_secondary_axis = viewport_columns;
     maximum_secondary_axis = viewport_rows;
     starts[0] = start_row;
