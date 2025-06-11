@@ -117,17 +117,40 @@ void blended_line(const float start_opacity, const float start_red,
                         secondary_axis * indices_per_secondary_axis;
 
       if (accumulators[1] < viewport_depths[index]) {
-        const float opacity = accumulators[2];
-        const float inverse_opacity = 1.0f - opacity;
+        const float source_opacity = accumulators[2];
+        const float inverse_source_opacity = (1.0f - source_opacity);
+        const float destination_opacity = viewport_opacities[index];
 
-        viewport_opacities[index] =
-            1.0f - (1.0f - viewport_opacities[index]) * inverse_opacity;
-        viewport_reds[index] =
-            viewport_reds[index] * inverse_opacity + accumulators[3] * opacity;
-        viewport_greens[index] = viewport_greens[index] * inverse_opacity +
-                                 accumulators[4] * opacity;
-        viewport_blues[index] =
-            viewport_blues[index] * inverse_opacity + accumulators[5] * opacity;
+        const float opacity =
+            1.0f - inverse_source_opacity * (1.0f - destination_opacity);
+
+        if (opacity > 0.0f) {
+          viewport_opacities[index] = opacity;
+
+          const float source_red = accumulators[3];
+          const float destination_red = viewport_reds[index];
+
+          const float inverse_opacity = 1.0f / opacity;
+          const float source_coefficient = source_opacity * inverse_opacity;
+          const float destination_coefficient =
+              destination_opacity * inverse_source_opacity * inverse_opacity;
+
+          viewport_reds[index] = (source_red * source_coefficient +
+                                  destination_red * destination_coefficient);
+
+          const float source_green = accumulators[4];
+          const float destination_green = viewport_greens[index];
+
+          viewport_greens[index] =
+              (source_green * source_coefficient +
+               destination_green * destination_coefficient);
+
+          const float source_blue = accumulators[5];
+          const float destination_blue = viewport_blues[index];
+
+          viewport_blues[index] = (source_blue * source_coefficient +
+                                   destination_blue * destination_coefficient);
+        }
       }
     }
 
