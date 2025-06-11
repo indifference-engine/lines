@@ -127,13 +127,13 @@ void blended_line(const float start_opacity, const float start_red,
         if (opacity > 0.0f) {
           viewport_opacities[index] = opacity;
 
-          const float source_red = accumulators[3];
-          const float destination_red = viewport_reds[index];
-
           const float inverse_opacity = 1.0f / opacity;
           const float source_coefficient = source_opacity * inverse_opacity;
           const float destination_coefficient =
               destination_opacity * inverse_source_opacity * inverse_opacity;
+
+          const float source_red = accumulators[3];
+          const float destination_red = viewport_reds[index];
 
           viewport_reds[index] = (source_red * source_coefficient +
                                   destination_red * destination_coefficient);
